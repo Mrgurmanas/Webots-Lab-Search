@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.07887134721646398 -0.9863447183183056 -0.1445801066324212 4.64741349139689
-  position 0.7536136749615788 0.02707992920613587 0.8866280273333234
+  orientation 0.003382157800320229 -0.9989689216654903 -0.045273110729227586 3.1086802833711467
+  position 0.6142542200418608 0.02221074429272081 0.5532352821339122
   follow "robot:distance_sensor"
 }
 TexturedBackground {
@@ -1018,9 +1018,26 @@ DEF WALLS Group {
   ]
 }
 Robot {
-  translation 0.6 0.0406785 0.9
-  rotation 0 1 0 1.5708
+  translation 0.6089958892306669 0.040472742033543466 0.9000006427870811
+  rotation -3.1503791456690914e-08 0.9999999999999992 2.52671621914513e-08 1.5706500144546613
   children [
+    DistanceSensor {
+      translation 0 -0.03 0.055
+      rotation 0 0 1 -1.5707953071795862
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "line_sensor"
+      physics Physics {
+      }
+      type "infra-red"
+    }
     LightSensor {
       translation 0 -0.025 0.05
       rotation 0 0 1 -1.5707996938995747
@@ -1034,6 +1051,7 @@ Robot {
         }
       ]
       name "line_detector_sensor"
+      colorFilter 0 0 0
     }
     LightSensor {
       translation 0 0.02 0.05
@@ -1051,7 +1069,7 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 66.15195600974786
+        position 66.59995597191615
         anchor -0.02 -0.02 0.03
       }
       device [
@@ -1060,8 +1078,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -0.04999999999999999 -0.02 0.03
-        rotation -0.5761108885335224 0.587281939682757 -0.5685034454034327 4.159048158660855
+        translation -0.049998032662356695 -0.019994259132282692 0.02999596625538234
+        rotation 0.6426410491291974 -0.6551027468688867 0.39730702613843094 2.3983145945741273
         children [
           Shape {
             appearance PBRAppearance {
@@ -1082,7 +1100,7 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 80.1519685026849
+        position 80.59996866892031
         anchor -0.02 -0.02 -0.03
       }
       device [
@@ -1091,8 +1109,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -0.04999999999999988 -0.02 -0.03
-        rotation 0.6831188962096308 -0.6963648811101937 -0.2200557338442275 3.5668076420541555
+        translation -0.0500019662295896 -0.019994257909138963 -0.029998567813509947
+        rotation -0.6460366513734692 0.6585642835174594 0.3859141479102444 2.4177924246323075
         children [
           Shape {
             appearance PBRAppearance {
@@ -1114,7 +1132,7 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 74.15197573073938
+        position 74.5999754768884
         anchor 0.015 -0.02 -0.03
       }
       device [
@@ -1123,8 +1141,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.05000000000000013 -0.02 -0.03
-        rotation -0.4968229429619548 0.5064565649232905 0.704747267602169 1.9318097542244435
+        translation 0.04999803155052675 -0.019994276954608092 -0.030000851479656167
+        rotation -0.3562272104717419 0.3631349731901137 0.8609501528925682 1.7389215861265634
         children [
           Shape {
             appearance PBRAppearance {
@@ -1146,7 +1164,7 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 65.15196544032815
+        position 65.59996554128612
         anchor 0.015 -0.02 0.03
       }
       device [
@@ -1155,8 +1173,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.049999999999999975 -0.02 0.03
-        rotation -0.0555630121156723 0.05664040409472156 0.9968473385170972 1.5931569584130387
+        translation 0.050001967309543614 -0.019994303170734213 0.030003467881661396
+        rotation 0.1611442344237621 -0.16426897220893807 0.9731640357521432 1.6171865628175979
         children [
           Shape {
             appearance PBRAppearance {

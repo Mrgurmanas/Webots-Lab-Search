@@ -7,6 +7,16 @@ robot = Robot()
 distance_sensor = robot.getDevice('distance_sensor')
 distance_sensor.enable(TIME_STEP)
 
+line_sensor = robot.getDevice('line_sensor')
+line_sensor.enable(TIME_STEP)
+
+#light sensors
+line_detector_sensor = robot.getDevice('line_detector_sensor')
+light_sensor = robot.getDevice('light_sensor')
+
+line_detector_sensor.enable(TIME_STEP)
+light_sensor.enable(TIME_STEP)
+
 #wheels settup
 #get wheels
 wheelFL = robot.getDevice('FLWHEEL')
@@ -30,14 +40,15 @@ wheelBR.setVelocity(0.0)
 #avoidObstavleCounter == 93 to turn 90 degrees
 avoidObstacleCounter = 0
 while robot.step(TIME_STEP) != -1:
+    #print(line_sensor.getValue())
     leftSpeed = 1.0
     rightSpeed = 1.0
     if avoidObstacleCounter > 0:
         avoidObstacleCounter -= 1
         leftSpeed = 1.0
         rightSpeed = -1.0
-    else:  # read sensors
-        if distance_sensor.getValue() < 950.0:
+    else:  # read sensors if wall infront if black line on ground
+        if distance_sensor.getValue() < 950.0 or line_sensor.getValue() > 500.0:
             avoidObstacleCounter = 93
                 
     wheelFL.setVelocity(leftSpeed)
