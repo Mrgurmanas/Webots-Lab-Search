@@ -3,9 +3,10 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.53040265642628 -0.6671208252114113 -0.5230896927154951 1.8797446198983567
-  position 0.4149353225836422 1.0552705741054509 0.902801927421914
+  orientation -0.5427806381128704 -0.6398860789424343 -0.5439990669711322 1.9357527092513205
+  position 0.5398499359722102 2.9387920035951045 0.7090687486253914
   follow "robot:distance_sensor_front"
+  followType "None"
 }
 TexturedBackground {
 }
@@ -1018,9 +1019,12 @@ DEF WALLS Group {
   ]
 }
 Robot {
-  translation 0.5999999999251155 0.04047996548100129 0.9000000004907508
-  rotation 4.040049881880682e-11 0.9999999999999999 -3.240976099370677e-11 1.570800192100252
+  translation 1.4964607008800195 0.03987752998999013 0.6181253771428007
+  rotation 0.014274522140472716 0.9998797418593282 -0.0060613395371638835 0.8046040613883821
   children [
+    InertialUnit {
+      name "intertialUnit"
+    }
     GPS {
     }
     Compass {
@@ -1060,7 +1064,7 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 158.72798582066352
+        position 21726.487823292544
         anchor -0.02 -0.02 0.03
       }
       device [
@@ -1069,8 +1073,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -0.049999999999999774 -0.02 0.03
-        rotation 0.6573475858344109 -0.6573500004113525 -0.3684903368568388 3.847693050890726
+        translation -0.04999999999999846 -0.02 0.03
+        rotation -0.6085660842384083 0.6085683196305574 -0.5092071498484387 4.083562022523309
         children [
           Shape {
             appearance PBRAppearance {
@@ -1087,11 +1091,13 @@ Robot {
         }
         physics Physics {
         }
+        linearVelocity -0.012678990530224053 -1.529654968345586e-05 -0.004532721483849414
+        angularVelocity -0.6901900778111109 -0.25578987924759733 0.7230463682268047
       }
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 172.7280046994321
+        position 21740.479080688885
         anchor -0.02 -0.02 -0.03
       }
       device [
@@ -1100,8 +1106,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -0.050000000000000454 -0.02 -0.03
-        rotation 0.6573470572448914 -0.6573494718198906 -0.36849222275319765 3.847696371747614
+        translation -0.050000000000000586 -0.02 -0.03
+        rotation -0.6071557992074038 0.6071580294192781 -0.5125631305512696 4.08888472418462
         children [
           Shape {
             appearance PBRAppearance {
@@ -1119,11 +1125,13 @@ Robot {
         }
         physics Physics {
         }
+        linearVelocity -0.0021054869933402774 9.775930928875257e-06 -0.015603130552648833
+        angularVelocity -0.6901916492538821 -0.255789097000677 0.7230486288771174
       }
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 203.2079184279996
+        position 31902.269639343467
         anchor 0.015 -0.02 -0.03
       }
       device [
@@ -1132,8 +1140,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.04999999999999944 -0.02 -0.03
-        rotation 0.7053792630571879 -0.7053818540646555 0.06983219318629262 3.0021551418862167
+        translation 0.04999999999999934 -0.02 -0.03
+        rotation -0.7054291415684187 0.7054317327591013 0.06881712463141461 3.0041755614886445
         children [
           Shape {
             appearance PBRAppearance {
@@ -1151,11 +1159,13 @@ Robot {
         }
         physics Physics {
         }
+        linearVelocity 0.016347656092724303 1.5286831359251893e-05 0.0020203066987541617
+        angularVelocity 0.6908620528004217 -0.25577637608391435 -0.7235874879570716
       }
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 194.20791130224552
+        position 31893.259215216072
         anchor 0.015 -0.02 0.03
       }
       device [
@@ -1164,8 +1174,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.04999999999999971 -0.02 0.03
-        rotation 0.7053792899714848 -0.7053818809790484 0.06983164945627304 3.0021562240650543
+        translation 0.04999999999999958 -0.02 0.03
+        rotation -0.7056043097743103 0.7056069016084188 0.0651264802556258 3.011523856441063
         children [
           Shape {
             appearance PBRAppearance {
@@ -1183,6 +1193,8 @@ Robot {
         }
         physics Physics {
         }
+        linearVelocity 0.005774923093229924 -9.782221806958245e-06 0.01309174171676859
+        angularVelocity 0.6908610692909003 -0.2557749002219911 -0.7235851851238448
       }
     }
     DistanceSensor {
@@ -1263,4 +1275,6 @@ Robot {
   physics Physics {
   }
   controller "inz_controller_py"
+  linearVelocity 0.00014792499836037583 -4.107646993220532e-06 0.000628107867107208
+  angularVelocity 0.0003353878445114454 -0.25511078487741173 -0.0002693738550532109
 }
