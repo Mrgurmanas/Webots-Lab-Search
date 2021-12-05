@@ -3,8 +3,9 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.04434333657615696 -0.9989786380855569 -0.00868038881730474 1.196793325073661
-  position 0.18589765266963254 0.08955346302423947 1.0610870885878945
+  orientation -0.5919103783874692 -0.6310195979927196 -0.5014542560456633 1.9291134015508462
+  position 0.48166787390307747 0.9036892286389411 0.8526809357578332
+  follow "robot:distance_sensor"
 }
 TexturedBackground {
 }
@@ -1017,8 +1018,8 @@ DEF WALLS Group {
   ]
 }
 Robot {
-  translation 0.6059297241044342 0.040904462095366606 0.8833772926780908
-  rotation 3.8578100340012506e-05 0.9999990311283857 0.001391493449430153 0.27439019875927995
+  translation 0.6 0.0406785 0.9
+  rotation 0 1 0 1.5708
   children [
     LightSensor {
       translation 0 -0.02 0.05
@@ -1050,17 +1051,17 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 1.0000000007351713
+        position 66.15195600974786
         anchor -0.02 -0.02 0.03
       }
       device [
         RotationalMotor {
-          name "FLWHEEL"
+          name "FRWHEEL"
         }
       ]
       endPoint Solid {
-        translation -0.049999999999999996 -0.02 0.03
-        rotation 0.32538483345550573 -0.33169419279944923 -0.8854962860567256 4.572040153219656
+        translation -0.04999999999999999 -0.02 0.03
+        rotation -0.5761108885335224 0.587281939682757 -0.5685034454034327 4.159048158660855
         children [
           Shape {
             appearance PBRAppearance {
@@ -1077,23 +1078,21 @@ Robot {
         }
         physics Physics {
         }
-        linearVelocity -1.8177412553492384e-09 2.1588064163691614e-08 -1.0927890226923189e-08
-        angularVelocity -9.435880753360923e-07 -6.237339681333891e-09 1.8581604599886626e-07
       }
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 15.000000126124366
+        position 80.1519685026849
         anchor -0.02 -0.02 -0.03
       }
       device [
         RotationalMotor {
-          name "BLWHEEL"
+          name "BRWHEEL"
         }
       ]
       endPoint Solid {
-        translation -0.05000000000000003 -0.02 -0.03
-        rotation 0.5417282101898491 -0.5522325656281202 0.6336953051303811 2.0292316665044248
+        translation -0.04999999999999988 -0.02 -0.03
+        rotation 0.6831188962096306 -0.696364881110194 -0.22005573384422744 3.566807642054156
         children [
           Shape {
             appearance PBRAppearance {
@@ -1111,23 +1110,21 @@ Robot {
         }
         physics Physics {
         }
-        linearVelocity 3.373032450587574e-09 1.661269194215339e-08 6.625503377615248e-09
-        angularVelocity 5.440931887110027e-07 -5.016963378733912e-09 -2.327267133463815e-07
       }
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 8.999999998877271
+        position 74.15197573073938
         anchor 0.015 -0.02 -0.03
       }
       device [
         RotationalMotor {
-          name "BRWHEEL"
+          name "BLWHEEL"
         }
       ]
       endPoint Solid {
-        translation 0.04999999999999998 -0.02 -0.03
-        rotation -0.6921320418893862 0.7055527957682999 -0.1521462749250362 3.4379097128183274
+        translation 0.05000000000000013 -0.02 -0.03
+        rotation -0.4968229429619548 0.5064565649232905 0.704747267602169 1.9318097542244435
         children [
           Shape {
             appearance PBRAppearance {
@@ -1145,23 +1142,21 @@ Robot {
         }
         physics Physics {
         }
-        linearVelocity -1.3513837663473528e-09 1.0303150255177567e-08 -1.1534929220211014e-08
-        angularVelocity -9.901085845505823e-07 -5.468665213226135e-09 2.0040858040937639e-07
       }
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 5.081613452108671e-11
+        position 65.15196544032815
         anchor 0.015 -0.02 0.03
       }
       device [
         RotationalMotor {
-          name "FRWHEEL"
+          name "FLWHEEL"
         }
       ]
       endPoint Solid {
-        translation 0.05 -0.02 0.03
-        rotation -0.677119379679315 0.6902490312361357 0.25507963568320335 2.6512069098654414
+        translation 0.049999999999999975 -0.02 0.03
+        rotation -0.0555630121156723 0.05664040409472156 0.9968473385170972 1.5931569584130387
         children [
           Shape {
             appearance PBRAppearance {
@@ -1179,12 +1174,10 @@ Robot {
         }
         physics Physics {
         }
-        linearVelocity 3.676339101896069e-09 1.0592387353466413e-08 6.73975060730954e-09
-        angularVelocity 7.343185404057752e-07 -5.636201619542631e-09 -2.8510307507539283e-07
       }
     }
     DistanceSensor {
-      translation -603.6136957652225 -1594824.3930399846 -66.29697405816103
+      translation 6.99334e-05 0.00982561 0.0493899
       rotation 0.01112216575729272 -0.9999129210601427 -0.007102656252445453 1.5776432937483473
       children [
         Shape {
@@ -1198,7 +1191,6 @@ Robot {
       name "distance_sensor"
       physics Physics {
       }
-      linearVelocity 0 -5562.976319998719 0
     }
     DEF Body Shape {
       appearance PBRAppearance {
@@ -1213,39 +1205,5 @@ Robot {
   boundingObject USE Body
   physics Physics {
   }
-  controller "inz_controller"
-}
-Robot {
-  translation 0.5794289274236089 0.025873523751165972 0.7420615124919496
-  rotation 0.033958666921219134 0.9985735646613865 0.04120248658012715 0.16504980698226288
-  children [
-    MindstormsRover {
-      hidden position_0_0 293.7918844639982
-      hidden position_0_1 1468.9599150567178
-      hidden translation_2 -0.009063321943065361 0.016009620717768465 -0.0364791227363801
-      hidden rotation_2 0.11336421519662725 -0.9923773812573339 0.04832895489961477 2.907420651780768e-15
-      hidden linearVelocity_2 -8.268409153205618e-15 5.00155472593633e-13 -6.662224082540131e-14
-      hidden angularVelocity_2 -4.051143846482822e-12 -5.785575626208109e-14 4.634346443784422e-14
-      hidden translation_3 -0.05706332195613606 0.016009620717760235 -0.03647912273716347
-      hidden rotation_3 -0.04681938323882924 -0.9988416457436049 0.011104597306645397 2.890008833221324e-15
-      hidden linearVelocity_3 -6.728749018302535e-15 4.009570453433753e-13 -6.522476531766687e-14
-      hidden angularVelocity_3 -4.054610667777118e-12 -5.785484223914431e-14 4.843583476135985e-14
-      hidden translation_4 -0.022742999999999958 0.011918 0
-      hidden rotation_4 -1 0 0 0.17593033293124286
-      hidden linearVelocity_4 -5.8325837438468975e-15 3.1711506662389137e-13 -4.78323423952989e-14
-      hidden angularVelocity_4 0.1709013410220486 0.00037333664587257774 -0.10388740181183928
-      hidden translation_5 0.022512999999999977 0.011918 0
-      hidden rotation_5 1 0 0 2.185635693389549
-      hidden linearVelocity_5 -6.548448101732761e-15 4.114753020180516e-13 -4.8989037351278617e-14
-      hidden angularVelocity_5 0.8545067067987545 0.0018667182871330561 -0.5194370061824375
-      translation -0.2717500173047599 -0.024309445432263304 0.10303899149749396
-      rotation 0.001462234138059575 0.9999442218255041 -0.010460167738254544 -2.7601747241151404
-    }
-  ]
-  name "updated"
-  boundingObject USE Body
-  physics Physics {
-  }
-  linearVelocity 2.7937780209513934e-16 -9.83864841449152e-14 -9.745007351343339e-14
-  angularVelocity -4.0586523445428835e-12 -5.88887023076002e-14 4.905898716152724e-14
+  controller "inz_controller_py"
 }
