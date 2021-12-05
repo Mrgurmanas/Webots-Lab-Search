@@ -44,9 +44,15 @@ map = [list(row) for i in range(num_rows)]
 #       [-1,-1,-1,-1,-1,-1,-1],
 #       [-1,-1,-1,-1,-1,-1,-1]]
     
-#distance sensor for wall in front detection
-distance_sensor = robot.getDevice('distance_sensor')
-distance_sensor.enable(TIME_STEP)
+#distance sensor for walls detection
+ds_front = robot.getDevice('distance_sensor_front')
+ds_front.enable(TIME_STEP)
+ds_back = robot.getDevice('distance_sensor_back')
+ds_back.enable(TIME_STEP)
+ds_left = robot.getDevice('distance_sensor_left')
+ds_left.enable(TIME_STEP)
+ds_right = robot.getDevice('distance_sensor_right')
+ds_right.enable(TIME_STEP)
 
 #detect lines on ground
 line_sensor = robot.getDevice('line_sensor')
@@ -93,6 +99,11 @@ while robot.step(TIME_STEP) != -1:
     #print('Y: ', gps.getValues()[1], ' blockY: ', round(gps.getValues()[1]/0.3))
     #print('Z: ', gps.getValues()[2], ' blockZ: ', 1 + round(gps.getValues()[2]/0.3))
     
+    print('front distance: ', ds_front.getValue())
+    print('back distance: ', ds_back.getValue())
+    print('left distance: ', ds_left.getValue())
+    print('right distance: ', ds_right.getValue())
+    
     currentTileX = round(gps.getValues()[0]/0.3) - 1
     currentTileZ = round(gps.getValues()[2]/0.3)
     
@@ -110,7 +121,7 @@ while robot.step(TIME_STEP) != -1:
         avoidObstacleCounter -= 1
         turn_right()
     else:  # read sensors if wall infront or if black line on ground
-        if distance_sensor.getValue() < 950.0 or line_sensor.getValue() > 500.0:
+        if ds_front.getValue() < 950.0 or line_sensor.getValue() > 500.0:
             print('wall or line')
             avoidObstacleCounter = 93
         drive_forward()          
