@@ -93,12 +93,19 @@ while robot.step(TIME_STEP) != -1:
     #print('Y: ', gps.getValues()[1], ' blockY: ', round(gps.getValues()[1]/0.3))
     #print('Z: ', gps.getValues()[2], ' blockZ: ', 1 + round(gps.getValues()[2]/0.3))
     
+    currentTileX = round(gps.getValues()[0]/0.3) - 1
+    currentTileZ = round(gps.getValues()[2]/0.3)
+    
+    print('X: ', currentTileX, ' Z: ', currentTileZ)
+    
+    map[currentTileX][currentTileZ].visited = True
+    
     #maze end found
-    #print(light_sensor.getValue())
     if light_sensor.getValue() >= 1000:
         #initialize going back to start
         print('Found exit')
     
+    #check for wall or line if found turn right else drive forward
     if avoidObstacleCounter > 0:
         avoidObstacleCounter -= 1
         turn_right()
