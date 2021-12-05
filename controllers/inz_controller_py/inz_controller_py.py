@@ -109,7 +109,8 @@ while robot.step(TIME_STEP) != -1:
     if avoidObstacleCounter > 0:
         avoidObstacleCounter -= 1
         turn_right()
-    else:  # read sensors if wall infront if black line on ground
+    else:  # read sensors if wall infront or if black line on ground
         if distance_sensor.getValue() < 950.0 or line_sensor.getValue() > 500.0:
+            print('wall or line')
             avoidObstacleCounter = 93
         drive_forward()          
