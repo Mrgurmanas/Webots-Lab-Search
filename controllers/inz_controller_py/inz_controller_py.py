@@ -3,10 +3,181 @@ from controller import Compass
 from controller import GPS
 from controller import InertialUnit
 
-class Tile:
-    visited = False
-    neighbours = []
+
+def LeeAlgo(map, startx, starty, endx, endy, maxx, maxy):
+  tile = map[startx][starty]
+  tile.distance = 0
+  LeeAlgoRec(map, startx, starty, maxx, maxy)
+
+  
+#  totalDist = newmap[endx][endy].distance
+
+  
+  target = GetListToTile(map, endx, endy, startx, starty, maxx, maxy)
+  for Tile in map:
+    for Tile2 in Tile:
+      Tile2.distance = -1
+  return target
+ # return newmap
+
+
+def GetListToTile(map, endx, endy, startx, starty, maxx, maxy):
+  target = []
+  distance = map[endx][endy].distance
+  x = endx
+  y = endy
+  while distance > 0:
+      robot.step(TIME_STEP)
+      tile = map[x][y]
+      wallnumber = tile.wallnumber + tile.wallnumberlines
+     # print("tilas ", x, " ", y, " atstumas ", tile.distance, " sienos numeris ", wallnumber)
+      if wallnumber >= 8:
+         wallnumber = wallnumber - 8
+      elif y > 0 and map[x][y-1].distance < tile.distance:
+         target.append("E")
+         distance = map[x][y-1].distance
+         x = x
+         y = y-1
+         continue
+      if wallnumber >= 4:
+        wallnumber = wallnumber - 4
+      elif x > 0 and map[x-1][y].distance < tile.distance:
+         target.append("N")
+         distance = map[x-1][y].distance
+         x = x-1
+         y = y
+         continue
+      
+
+      if wallnumber >= 2:
+        wallnumber = wallnumber - 2
+      elif y < maxy-1 and map[x][y+1].distance < tile.distance:
+         target.append("W")
+         distance = map[x][y+1].distance
+         x = x
+         y = y+1
+         continue
+      
+
+      if wallnumber >= 1:
+        wallnumber = wallnumber - 1
+      elif x < maxx-1 and map[x+1][y].distance < tile.distance:
+         target.append("S")
+         distance = map[x+1][y].distance
+         x = x+1
+         y = y
+         continue
+  return target[::-1]
+
+
+def LeeAlgoRec(map, x, y, maxx, maxy):
+    tile = map[x][y]
+    wallnumber = tile.wallnumber + tile.wallnumberlines
+    if tile.seen:
+    #  print("pradinis tilo wall number ", wallnumber, " tilas ", x, " ", y)
+      N = False
+      E = False
+      S = False
+      W = False
+      if wallnumber >= 8:
+        wallnumber = wallnumber - 8
+    #    print("naujas tilo wall number ", wallnumber, " tilas ", x, " ", y)
+      elif y > 0 and (map[x][y-1].distance == -1 or map[x][y-1].distance > tile.distance + 1) and map[x][y-1].seen:
+        map[x][y-1].distance = tile.distance + 1
+        W = True
+      
+
+      if wallnumber >= 4:
+        wallnumber = wallnumber - 4
+     #   print("naujas tilo wall number ", wallnumber, " tilas ", x, " ", y)
+      elif x > 0 and (map[x-1][y].distance == -1 or map[x-1][y].distance > tile.distance + 1) and map[x-1][y].seen:
+        map[x-1][y].distance = tile.distance + 1
+        S = True
+      
+
+      if wallnumber >= 2:
+        wallnumber = wallnumber - 2
+    #    print("naujas tilo wall number ", wallnumber, " tilas ", x, " ", y)
+      elif y < maxy-1 and (map[x][y+1].distance == -1 or map[x][y+1].distance > tile.distance + 1) and map[x][y+1].seen:
+        map[x][y+1].distance = tile.distance + 1
+        E = True
+      
+
+      if wallnumber >= 1:
+        wallnumber = wallnumber - 1
+   #     print("naujas tilo wall number ", wallnumber, " tilas ", x, " ", y)
+      elif x < maxx-1 and (map[x+1][y].distance == -1 or map[x+1][y].distance > tile.distance + 1) and map[x+1][y].seen:
+        map[x+1][y].distance = tile.distance + 1
+        N = True
+
+      if W:
+    #    print("tilas " , x , " " , y , " galima i W")
+        LeeAlgoRec(map, x, y-1, maxx, maxy)
+      if S:
+     #    print("tilas " , x , " " , y , " galima i S")
+         LeeAlgoRec(map, x-1, y, maxx, maxy)
+      if E:
+    #     print("tilas " , x , " " , y , " galima i E")
+         LeeAlgoRec(map, x, y+1, maxx, maxy)
+      if N:
+     #   print("tilas " , x , " " , y , " galima i N")
+        LeeAlgoRec(map, x+1, y,maxx, maxy)
+
+
+
+def moveToTarget(map, direction, target):
+    arrived = True
+    if not target:
+        arrived = False
+    for dir in target:
+        if arrived == True:
+            currentTileX = round(gps.getValues()[0]/0.3) - 1
+            currentTileZ = round(gps.getValues()[2]/0.3)
+            arrived = False
+            if dir == 'N':
+                rotate(2)
+                arrived = drive_until(map, direction, currentTileX, currentTileX+1, currentTileZ, currentTileZ)
+            if dir == 'E':
+                rotate(3)
+                arrived = drive_until(map, direction, currentTileX, currentTileX, currentTileZ, currentTileZ+1)
+            if dir == 'S':
+                rotate(4)
+                arrived = drive_until(map, direction, currentTileX, currentTileX-1, currentTileZ, currentTileZ)
+            if dir == 'W':
+                rotate(1)
+                arrived = drive_until(map, direction, currentTileX, currentTileX, currentTileZ, currentTileZ-1)
+    return arrived
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Tile:
+    visited = False  
+    seen = False
+    wallnumber = 15
+    wallnumberlines = 0
+    distance = -1
+    def __init__(self):
+      pass
 def drive_forward():
     #print('drive forward')
     leftSpeed = 1.0
@@ -16,6 +187,72 @@ def drive_forward():
     wheelFR.setVelocity(rightSpeed)
     wheelBR.setVelocity(rightSpeed)
     
+def drive_until(map, direction, currentTileX, xpos, currentTileZ, zpos):
+       startX = currentTileX
+       startZ = currentTileZ
+       foundLine = False
+       while (abs(currentTileX - xpos) > 0.15 or abs(currentTileZ - zpos) > 0.15) and foundLine == False:
+        currentTileX = round(gps.getValues()[0]/0.3, 2) - 1
+        currentTileZ = round(gps.getValues()[2]/0.3, 2)
+        robot.step(TIME_STEP)
+     #   print(abs(currentTileX - xpos))
+     #   print(abs(currentTileZ - zpos))
+        if line_sensor.getValue() > 500.0:
+            foundLine = True
+        drive_forward() 
+       stop()
+       if foundLine == True:
+           currentTileX = round(gps.getValues()[0]/0.3) - 1
+           currentTileZ = round(gps.getValues()[2]/0.3)
+           if direction == 1:
+              map[currentTileX][currentTileZ].wallnumberlines += 8
+              direction = rotate(3)
+           elif direction == 2:
+              map[currentTileX][currentTileZ].wallnumberlines += 1
+              direction = rotate(4)
+           elif direction == 3:
+              map[currentTileX][currentTileZ].wallnumberlines += 2
+              direction = rotate(1)
+           elif direction == 4:
+              map[currentTileX][currentTileZ].wallnumberlines += 4
+              direction = rotate(2)
+           currentTileX = round(gps.getValues()[0]/0.3,2) - 1
+           currentTileZ = round(gps.getValues()[2]/0.3,2)
+           drive_until(map, direction, currentTileX, startX, currentTileZ, startZ)
+           return False
+       else:
+            return True
+    
+def stop():
+    #print('drive forward')
+    leftSpeed = 0
+    rightSpeed = 0
+    wheelFL.setVelocity(leftSpeed)
+    wheelBL.setVelocity(leftSpeed)
+    wheelFR.setVelocity(rightSpeed)
+    wheelBR.setVelocity(rightSpeed)
+    
+def rotate(direction):
+    done = False
+    while done == False:
+        robot.step(TIME_STEP)
+        delta = 0.05#1.5708/2
+        currentPitch = round(inertial_unit.getRollPitchYaw()[2],4)
+        #print('dir: ', direction, ' v: ', currentPitch, ' f: ', ((-1.5708*2) + delta), ' a: ',((1.5708*2) - delta))
+        if direction == 1 and (currentPitch > ((-1.5708*2) + delta)) and (currentPitch < ((1.5708*2) - delta)):#(currentPitch > ((-1.5708*2) + delta) and currentPitch < ((1.5708*2) - delta)):
+            turn_right()
+        elif direction == 2 and (currentPitch > (1.5708 + delta) or currentPitch < (1.5708 - delta)):
+            turn_right()
+        elif direction == 3 and (currentPitch > (0 + delta) or currentPitch < (0 - delta)):
+           # print('3 ', currentPitch, ' > ', (0 +  delta), ' or ', currentPitch, ' < ', (0 - delta))
+            turn_right()
+        elif direction == 4 and (currentPitch > (-1.5708 + delta) or currentPitch < ((-1.5708) - delta)):
+           # print('4 ', currentPitch, ' > ', (-1.5708 + delta), ' or ', currentPitch, ' < ', ((-1.5708) - delta))
+            turn_right()
+        else:
+           done = True
+    stop()
+    return direction
 def turn_right():
     #print('drive to right')
     leftSpeed = 1.0
@@ -39,14 +276,14 @@ def print_current_dir(x):
 TIME_STEP = 64
 robot = Robot()
 
-num_cols = 7
-num_rows = 7
+num_x = 7
+num_z= 7
 
 startX = 2
-startZ = 4
+startZ = 3
 
-row = [Tile() for i in range(num_cols)]
-map = [list(row) for i in range(num_rows)]
+maxx, maxy = 7, 7
+map = [[Tile() for x in range(num_x)] for y in range(num_z)] 
 
 #map = [[-1,-1,-1,-1,-1,-1,-1],
  #      [-1,-1,-1,-1,-1,-1,-1],
@@ -123,8 +360,134 @@ direction = 2
 #if (newPitch < ((-1.5708*2) + (1.5708/2)) and newPitch > (-1.5708*2)) or (newPitch > (1.5708 + (1.5708/2)) and newPitch < (1.5708*2)) :
 #    print('driving left')
 #    direction = 1
-    
+exploring = True
+nextTileX = []
+nextTileZ = []
+map[startX][startZ].visited = True
+map[startX][startZ].seen = True
+newTarget = False
 while robot.step(TIME_STEP) != -1:
+    if exploring:
+        newTarget = False
+        direction = rotate(2)
+        currentTileX = round(gps.getValues()[0]/0.3) - 1
+        currentTileZ = round(gps.getValues()[2]/0.3)
+        map[currentTileX][currentTileZ].visited = True
+        wallnumber = 0
+        if ds_front.getValue() < 1000:
+          wallnumber = wallnumber + 1
+        elif map[currentTileX +1][currentTileZ].visited == False:
+          print("prideta ", currentTileX +1, " ", currentTileZ)
+          nextTileX.append(currentTileX + 1)
+          nextTileZ.append(currentTileZ)
+          map[currentTileX +1][currentTileZ].seen = True
+          map[currentTileX + 1][currentTileZ].wallnumber = map[currentTileX + 1][currentTileZ].wallnumber - 4
+          newTarget = True
+        if ds_right.getValue() < 1000:
+            wallnumber = wallnumber + 2
+        elif map[currentTileX][currentTileZ+1].visited == False:
+            print("prideta ", currentTileX, " ", currentTileZ+1)
+            nextTileX.append(currentTileX)
+            nextTileZ.append(currentTileZ+1)
+            map[currentTileX][currentTileZ+1].seen = True
+            map[currentTileX][currentTileZ+1].wallnumber = map[currentTileX][currentTileZ+1].wallnumber - 8
+            newTarget = True
+        if ds_back.getValue() < 1000:
+            wallnumber = wallnumber + 4
+            
+        elif map[currentTileX-1][currentTileZ].visited == False:
+              print("prideta ", currentTileX -1, " ", currentTileZ)
+              nextTileX.append(currentTileX -1)
+              nextTileZ.append(currentTileZ)
+              map[currentTileX-1][currentTileZ].seen = True
+              map[currentTileX-1][currentTileZ].wallnumber = map[currentTileX-1][currentTileZ].wallnumber - 1
+              newTarget = True
+        if ds_left.getValue() < 1000:
+              wallnumber = wallnumber + 8
+        elif map[currentTileX][currentTileZ-1].visited == False: 
+              print("prideta ", currentTileX, " ", currentTileZ-1)
+              nextTileX.append(currentTileX)
+              nextTileZ.append(currentTileZ-1)
+              map[currentTileX][currentTileZ-1].seen = True
+              map[currentTileX][currentTileZ-1].wallnumber = map[currentTileX][currentTileZ-1].wallnumber - 2
+              newTarget = True
+        map[currentTileX][currentTileZ].wallnumber = wallnumber
+        arrived = False
+        print("sienos numberis ", wallnumber)
+        print( nextTileX)
+        print( nextTileZ)
+        if newTarget == True:
+
+            targetX = nextTileX.pop()
+            targetZ = nextTileZ.pop()
+            print("dabartinis tile ", currentTileX, " ", currentTileZ)
+            print("kitas tile ", targetX, " ", targetZ)
+            if targetX - currentTileX == 1:
+                arrived = drive_until(map, direction, currentTileX, targetX, currentTileZ, targetZ)
+            elif currentTileX - targetX == 1:
+                direction = rotate(4)
+                arrived = drive_until(map, direction, currentTileX, targetX, currentTileZ, targetZ)
+            elif targetZ - currentTileZ == 1:
+                direction = rotate(3)
+                arrived = drive_until(map, direction, currentTileX, targetX, currentTileZ, targetZ)
+            elif currentTileZ - targetZ == 1:
+                direction = rotate(1)
+                arrived = drive_until(map, direction, currentTileX, targetX, currentTileZ, targetZ)
+        if arrived == False:
+            while arrived == False:
+                robot.step(TIME_STEP)
+                targetX = nextTileX.pop()
+                targetZ = nextTileZ.pop()
+            #    print(nextTileX)
+             #   print(nextTileZ)
+                target = LeeAlgo(map, currentTileX, currentTileZ, targetX, targetZ, num_x, num_z)
+                print("naujas taikinys: " , target)
+                arrived = moveToTarget(map, direction, target)
+                
+            
+            
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      #  drive_until(currentTileX, 2, currentTileZ, 3)
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  # while currentTileX != 2 or currentTileZ != 3:
+  #      print(currentTileX)
+  #      print(currentTileZ)
+  #      print("vaziuoja")
+       
+  #      drive_forward() 
+   # print("stop")
+  #  stop()
+
+
     #get direction by compass
     #print(compass.getValues())
     
@@ -136,57 +499,6 @@ while robot.step(TIME_STEP) != -1:
     #print('Y: ', gps.getValues()[1], ' blockY: ', round(gps.getValues()[1]/0.3))
     #print('Z: ', gps.getValues()[2], ' blockZ: ', 1 + round(gps.getValues()[2]/0.3))
     
-    #print('front distance: ', ds_front.getValue())
-    #print('back distance: ', ds_back.getValue())
-    #print('left distance: ', ds_left.getValue())
-    #print('right distance: ', ds_right.getValue())
-    
-    currentTileX = round(gps.getValues()[0]/0.3) - 1
-    currentTileZ = round(gps.getValues()[2]/0.3)
-    
-    #print('X: ', currentTileX, ' Z: ', currentTileZ)
-    if (currentTileX >= 0 and currentTileX <= 6) and (currentTileZ >= 0 and currentTileZ <= 6):
-        map[currentTileX][currentTileZ].visited = True
-    
-    #maze end found
-    if light_sensor.getValue() >= 1000:
-        #initialize going back to start
-        print('Found exit')
-    
-    delta = 0.05#1.5708/2
-    currentPitch = round(inertial_unit.getRollPitchYaw()[2],4)
-    #print('dir: ', direction, ' v: ', currentPitch, ' f: ', ((-1.5708*2) + delta), ' a: ',((1.5708*2) - delta))
-    
-    if direction == 1 and (currentPitch > ((-1.5708*2) + delta)) and (currentPitch < ((1.5708*2) - delta)):#(currentPitch > ((-1.5708*2) + delta) and currentPitch < ((1.5708*2) - delta)):
-        turn_right()
-    elif direction == 2 and (currentPitch > (1.5708 + delta) or currentPitch < (1.5708 - delta)):
-        turn_right()
-    elif direction == 3 and (currentPitch > (0 + delta) or currentPitch < (0 - delta)):
-        print('3 ', currentPitch, ' > ', (0 +  delta), ' or ', currentPitch, ' < ', (0 - delta))
-        turn_right()
-    elif direction == 4 and (currentPitch > (-1.5708 + delta) or currentPitch < ((-1.5708) - delta)):
-        print('4 ', currentPitch, ' > ', (-1.5708 + delta), ' or ', currentPitch, ' < ', ((-1.5708) - delta))
-        turn_right()
-    
-    #check for wall or line if found turn right else drive forward
-    #if avoidObstacleCounter > 0:
-        #delta = 0.005
-        #print('current: ', round(inertial_unit.getRollPitchYaw()[2], 4), '< needPos: ', (newPitch + 1.5708 + delta), 'or current', round(inertial_unit.getRollPitchYaw()[2], 4), '> needPos: ',((newPitch + 1.5708) - delta))
-    #if inertial_unit.getRollPitchYaw()[2] < (newPitch + 1.5708) + delta:
-        #avoidObstacleCounter -= 1
-        #turn_right()
-    else:  # read sensors if wall infront or if black line on ground
-        if ds_front.getValue() < 950.0 or line_sensor.getValue() > 500.0:
-            print('wall or line')
-            print(currentPitch)
-            #newPitch = inertial_unit.getRollPitchYaw()[2]
-            
-            #turn right
-            if direction == 4:
-                direction = 1
-            else:
-                direction += 1
-            print_current_dir(direction)
-            
-            avoidObstacleCounter = 85
-        drive_forward()          
+
+
+
