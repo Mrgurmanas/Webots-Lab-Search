@@ -279,9 +279,6 @@ robot = Robot()
 num_x = 7
 num_z= 7
 
-startX = 1
-startZ = 3
-
 maxx, maxy = 7, 7
 map = [[Tile() for x in range(num_x)] for y in range(num_z)] 
 
@@ -360,6 +357,9 @@ direction = 2
 #if (newPitch < ((-1.5708*2) + (1.5708/2)) and newPitch > (-1.5708*2)) or (newPitch > (1.5708 + (1.5708/2)) and newPitch < (1.5708*2)) :
 #    print('driving left')
 #    direction = 1
+robot.step(TIME_STEP)
+startX = round(gps.getValues()[0]/0.3) - 1
+startZ = round(gps.getValues()[2]/0.3)
 exploring = True
 nextTileX = []
 nextTileZ = []
