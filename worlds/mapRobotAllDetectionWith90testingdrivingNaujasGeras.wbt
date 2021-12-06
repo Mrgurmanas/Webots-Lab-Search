@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.17928405401771708 0.9093793867714263 0.3753483167541808 4.061797636574343
-  position 0.3041322356156496 0.6640668267898002 0.6079560957070663
+  orientation -0.5617427335642976 -0.6218859737343058 -0.5456216060240329 1.9333935769738921
+  position 0.515383919480278 1.2278752301458182 0.8207160337986152
   follow "robot:distance_sensor_front"
   followType "None"
 }
@@ -1019,64 +1019,10 @@ DEF WALLS Group {
   ]
 }
 Robot {
-  translation 0.6 0.06 0.9
+  translation 0.6 0 0.9
   rotation 0 1 0 1.58995
   scale 1.26961 1.26961 1.26961
   children [
-    Shape {
-      appearance PBRAppearance {
-      }
-    }
-    LED {
-      translation 0 0.14 0
-    }
-    Display {
-      translation 0 0.07 0.0500001
-      rotation 1 0 0 1.5708
-      children [
-        Shape {
-          appearance PBRAppearance {
-            baseColorMap ImageTexture {
-              url [
-                "C:/Users/šienuks/Documents/GitHub/Webots-Lab-Search/controllers/inz_controller_py/FrontWallDetectionDisplay.png"
-              ]
-            }
-            roughness 1
-            metalness 0
-          }
-          geometry IndexedFaceSet {
-            coord Coordinate {
-              point [
-                0.1 0.1 -0.1
-                0.1 -0.1 -0.1
-                -0.1 -0.1 -0.1
-                -0.1 0.1 -0.1
-              ]
-            }
-            texCoord TextureCoordinate {
-              point [
-                0 1
-                0 0
-                1 0
-                1 1
-              ]
-            }
-            coordIndex [
-              0, 1, 2, 3
-            ]
-            texCoordIndex [
-              0, 1, 2, 3
-            ]
-          }
-        }
-      ]
-      name "Wall_Detection_Display"
-    }
-    LED {
-      translation 0 0.06 0.02
-      scale 2 2 2
-      name "frontLed"
-    }
     InertialUnit {
       name "intertialUnit"
     }

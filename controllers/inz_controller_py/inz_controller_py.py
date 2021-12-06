@@ -2,7 +2,8 @@ from controller import Robot
 from controller import Compass
 from controller import GPS
 from controller import InertialUnit
-
+from controller import LED
+from controller import Display, ImageRef
 
 def LeeAlgo(map, startx, starty, endx, endy, maxx, maxy):
   tile = map[startx][starty]
@@ -279,6 +280,9 @@ robot = Robot()
 num_x = 7
 num_z= 7
 
+startX = 1
+startZ = 3
+
 maxx, maxy = 7, 7
 map = [[Tile() for x in range(num_x)] for y in range(num_z)] 
 
@@ -299,6 +303,10 @@ ds_left = robot.getDevice('distance_sensor_left')
 ds_left.enable(TIME_STEP)
 ds_right = robot.getDevice('distance_sensor_right')
 ds_right.enable(TIME_STEP)
+
+#Display setup
+detected_wall_display = robot.getDevice('Wall_Detection_Display')
+
 
 #detect lines on ground
 line_sensor = robot.getDevice('line_sensor')
@@ -332,6 +340,8 @@ wheelBL.setPosition(float('inf'))
 wheelFR.setPosition(float('inf'))
 wheelBR.setPosition(float('inf'))
 
+
+
 #set speed
 wheelFL.setVelocity(0.0)
 wheelBL.setVelocity(0.0)
@@ -357,9 +367,6 @@ direction = 2
 #if (newPitch < ((-1.5708*2) + (1.5708/2)) and newPitch > (-1.5708*2)) or (newPitch > (1.5708 + (1.5708/2)) and newPitch < (1.5708*2)) :
 #    print('driving left')
 #    direction = 1
-robot.step(TIME_STEP)
-startX = round(gps.getValues()[0]/0.3) - 1
-startZ = round(gps.getValues()[2]/0.3)
 exploring = True
 nextTileX = []
 nextTileZ = []
@@ -367,7 +374,15 @@ map[startX][startZ].visited = True
 map[startX][startZ].seen = True
 newTarget = False
 while robot.step(TIME_STEP) != -1:
+    
+    front = False
+    bottom = False
+    right = False
+    left = False
+    
+    
     if exploring:
+        
 
         if light_sensor.getValue() >= 1000:
              direction = rotate(2)
@@ -382,6 +397,8 @@ while robot.step(TIME_STEP) != -1:
         print("priekis: ",ds_front.getValue()) 
         wallnumber = 0
         if ds_front.getValue() < 1000:
+          
+          front = True
           wallnumber = wallnumber + 1
         elif currentTileX < num_x-1 and map[currentTileX +1][currentTileZ].visited == False:
           if map[currentTileX +1][currentTileZ].seen == False:
@@ -394,6 +411,8 @@ while robot.step(TIME_STEP) != -1:
         print("desine: ",ds_right.getValue()) 
         if ds_right.getValue() < 1000:
             wallnumber = wallnumber + 2
+            right = True
+            
         elif currentTileZ < num_z-1 and map[currentTileX][currentTileZ+1].visited == False:
             if map[currentTileX][currentTileZ+1].seen == False:
                 print("prideta ", currentTileX, " ", currentTileZ+1)
@@ -405,6 +424,7 @@ while robot.step(TIME_STEP) != -1:
         print("galas: ",ds_back.getValue()) 
         if ds_back.getValue() < 1000:
             wallnumber = wallnumber + 4
+            bottom = True
             
         elif currentTileX > 0 and map[currentTileX-1][currentTileZ].visited == False:
               if map[currentTileX-1][currentTileZ].seen == False:
@@ -417,6 +437,8 @@ while robot.step(TIME_STEP) != -1:
               
         print("kaire: ",ds_left.getValue()) 
         if ds_left.getValue() < 1000:
+              left = True
+              
               wallnumber = wallnumber + 8
         elif currentTileZ > 0 and map[currentTileX][currentTileZ-1].visited == False: 
               if map[currentTileX][currentTileZ-1].seen == False:
@@ -428,7 +450,54 @@ while robot.step(TIME_STEP) != -1:
               map[currentTileX][currentTileZ-1].wallnumber = map[currentTileX][currentTileZ-1].wallnumber - 2
               
         map[currentTileX][currentTileZ].wallnumber = wallnumber
-
+        
+        if front and not bottom and not right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("FrontWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and bottom and not right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("BottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and not bottom and right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("RightWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and not bottom and not right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+            
+        if front and bottom and not right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("TopAndBottomWallDetectionDisplayWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if front and not bottom and right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("RightTopAndBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if front and not bottom and not right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftTopAndBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and bottom and right and left:
+            displayWallDetection = detected_wall_display.imageLoad("RightAndBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and bottom and not right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftAndBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+            
+        if front and bottom and right and  not left:
+            displayWallDetection = detected_wall_display.imageLoad("RightTopAndBottomWallDetectionDisplay..png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and bottom and not right and left:
+            displayWallDetection = detected_wall_display.imageLoad("RightTopAndBottomWallDetectionDisplay..png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and bottom and right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftRightBottomWallDetectionDisplay..png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if front and not bottom and right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftRightTopWallDetectionDisplay..png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if front and bottom and right and left:
+            displayWallDetection = detected_wall_display.imageLoad("AllWallDetectionDisplay..png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+         
+        arrived = False
+         
         arrived = False
         print("sienos numberis ", wallnumber)
         print( nextTileX)
@@ -475,7 +544,7 @@ while robot.step(TIME_STEP) != -1:
       
       
       
-      
+    
       
       
       

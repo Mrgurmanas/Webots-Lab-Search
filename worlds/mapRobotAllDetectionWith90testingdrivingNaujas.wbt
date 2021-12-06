@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.17928405401771708 0.9093793867714263 0.3753483167541808 4.061797636574343
-  position 0.3041322356156496 0.6640668267898002 0.6079560957070663
+  orientation -0.6224627932532298 -0.7326272902190392 -0.2753131392463763 0.9320001701125858
+  position -0.5248418896794587 1.3247318360974916 2.424508113047104
   follow "robot:distance_sensor_front"
   followType "None"
 }
@@ -1019,64 +1019,10 @@ DEF WALLS Group {
   ]
 }
 Robot {
-  translation 0.6 0.06 0.9
-  rotation 0 1 0 1.58995
+  translation 0.6306660133046872 0.05053745304512311 0.4659344864541031
+  rotation -5.4723791513885634e-05 0.9999887233385186 -0.004748705203147195 -3.1387091316252964
   scale 1.26961 1.26961 1.26961
   children [
-    Shape {
-      appearance PBRAppearance {
-      }
-    }
-    LED {
-      translation 0 0.14 0
-    }
-    Display {
-      translation 0 0.07 0.0500001
-      rotation 1 0 0 1.5708
-      children [
-        Shape {
-          appearance PBRAppearance {
-            baseColorMap ImageTexture {
-              url [
-                "C:/Users/šienuks/Documents/GitHub/Webots-Lab-Search/controllers/inz_controller_py/FrontWallDetectionDisplay.png"
-              ]
-            }
-            roughness 1
-            metalness 0
-          }
-          geometry IndexedFaceSet {
-            coord Coordinate {
-              point [
-                0.1 0.1 -0.1
-                0.1 -0.1 -0.1
-                -0.1 -0.1 -0.1
-                -0.1 0.1 -0.1
-              ]
-            }
-            texCoord TextureCoordinate {
-              point [
-                0 1
-                0 0
-                1 0
-                1 1
-              ]
-            }
-            coordIndex [
-              0, 1, 2, 3
-            ]
-            texCoordIndex [
-              0, 1, 2, 3
-            ]
-          }
-        }
-      ]
-      name "Wall_Detection_Display"
-    }
-    LED {
-      translation 0 0.06 0.02
-      scale 2 2 2
-      name "frontLed"
-    }
     InertialUnit {
       name "intertialUnit"
     }
@@ -1119,7 +1065,7 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 21726.487823292544
+        position 21708.15198840286
         anchor -0.02 -0.02 0.03
       }
       device [
@@ -1128,8 +1074,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -0.049999999999998476 -0.02 0.03
-        rotation -0.6085660842384079 0.6085683196305575 -0.5092071498484392 4.083562022523314
+        translation -0.04999999999999847 -0.02 0.03
+        rotation 0.6709288407969661 -0.6709313052607319 0.31576205314757133 2.5298868886473564
         children [
           Shape {
             appearance PBRAppearance {
@@ -1146,11 +1092,13 @@ Robot {
         }
         physics Physics {
         }
+        linearVelocity -7.322782747294205e-05 1.4349212920286838e-08 -0.025392079492984485
+        angularVelocity -0.9999952732063723 -9.692931880704423e-05 0.0028840785310020353
       }
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 21740.479080688885
+        position 21722.14316383043
         anchor -0.02 -0.02 -0.03
       }
       device [
@@ -1159,8 +1107,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -0.05000000000000064 -0.02 -0.03
-        rotation -0.6071557992074039 0.6071580294192778 -0.5125631305512696 4.08888472418462
+        translation -0.050000000000000655 -0.02 -0.03
+        rotation 0.670156879709596 -0.6701593413377853 0.31902384518340327 2.5239603561935913
         children [
           Shape {
             appearance PBRAppearance {
@@ -1178,11 +1126,13 @@ Robot {
         }
         physics Physics {
         }
+        linearVelocity -7.322850305266796e-05 -2.76999892119316e-08 -0.0253920795025718
+        angularVelocity -0.9999952735012198 -9.640245919639414e-05 0.002883994318629855
       }
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 31902.269639343467
+        position 31956.63755850513
         anchor 0.015 -0.02 -0.03
       }
       device [
@@ -1192,7 +1142,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0.049999999999999226 -0.02 -0.03
-        rotation -0.7054291415684192 0.7054317327591011 0.06881712463141376 3.0041755614886445
+        rotation 0.47926798527168657 -0.4792697457245284 0.7352569000878293 1.8735990350806737
         children [
           Shape {
             appearance PBRAppearance {
@@ -1210,11 +1160,13 @@ Robot {
         }
         physics Physics {
         }
+        linearVelocity -7.322850278410023e-05 -1.4343780213672695e-08 -0.02539208071850504
+        angularVelocity -0.9999952743043485 -9.507066467376851e-05 0.0028837813913542504
       }
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 31893.259215216072
+        position 31947.627035457564
         anchor 0.015 -0.02 0.03
       }
       device [
@@ -1224,7 +1176,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0.04999999999999951 -0.02 0.03
-        rotation -0.7056043097743127 0.7056069016084163 0.0651264802556263 3.011523856441064
+        rotation 0.47627708579369504 -0.47627883526032844 0.7391336879285981 1.8685755259569674
         children [
           Shape {
             appearance PBRAppearance {
@@ -1242,6 +1194,8 @@ Robot {
         }
         physics Physics {
         }
+        linearVelocity -7.322783792773228e-05 2.7709250248169083e-08 -0.0253920807309485
+        angularVelocity -0.9999952746460696 -9.445609489415004e-05 0.002883683043960175
       }
     }
     DistanceSensor {
@@ -1322,4 +1276,6 @@ Robot {
   physics Physics {
   }
   controller "inz_controller_py"
+  linearVelocity -7.322465766414371e-05 6.4750289683114074e-09 -0.025392064224310062
+  angularVelocity 5.627902260780516e-07 -3.7812784443828324e-08 -1.0894865199186642e-07
 }
