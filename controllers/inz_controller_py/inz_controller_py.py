@@ -279,7 +279,7 @@ robot = Robot()
 num_x = 7
 num_z= 7
 
-startX = 2
+startX = 1
 startZ = 3
 
 maxx, maxy = 7, 7
@@ -368,50 +368,67 @@ map[startX][startZ].seen = True
 newTarget = False
 while robot.step(TIME_STEP) != -1:
     if exploring:
+
+        if light_sensor.getValue() >= 1000:
+             direction = rotate(2)
+             exploring = False
+             print('Found exit')
+             continue
         newTarget = False
         direction = rotate(2)
         currentTileX = round(gps.getValues()[0]/0.3) - 1
         currentTileZ = round(gps.getValues()[2]/0.3)
         map[currentTileX][currentTileZ].visited = True
+        print("priekis: ",ds_front.getValue()) 
         wallnumber = 0
         if ds_front.getValue() < 1000:
           wallnumber = wallnumber + 1
-        elif map[currentTileX +1][currentTileZ].visited == False:
-          print("prideta ", currentTileX +1, " ", currentTileZ)
-          nextTileX.append(currentTileX + 1)
-          nextTileZ.append(currentTileZ)
-          map[currentTileX +1][currentTileZ].seen = True
+        elif currentTileX < num_x-1 and map[currentTileX +1][currentTileZ].visited == False:
+          if map[currentTileX +1][currentTileZ].seen == False:
+              print("prideta ", currentTileX +1, " ", currentTileZ)
+              nextTileX.append(currentTileX + 1)
+              nextTileZ.append(currentTileZ)
+              map[currentTileX +1][currentTileZ].seen = True
+              newTarget = True
           map[currentTileX + 1][currentTileZ].wallnumber = map[currentTileX + 1][currentTileZ].wallnumber - 4
-          newTarget = True
+        print("desine: ",ds_right.getValue()) 
         if ds_right.getValue() < 1000:
             wallnumber = wallnumber + 2
-        elif map[currentTileX][currentTileZ+1].visited == False:
-            print("prideta ", currentTileX, " ", currentTileZ+1)
-            nextTileX.append(currentTileX)
-            nextTileZ.append(currentTileZ+1)
-            map[currentTileX][currentTileZ+1].seen = True
+        elif currentTileZ < num_z-1 and map[currentTileX][currentTileZ+1].visited == False:
+            if map[currentTileX][currentTileZ+1].seen == False:
+                print("prideta ", currentTileX, " ", currentTileZ+1)
+                nextTileX.append(currentTileX)
+                nextTileZ.append(currentTileZ+1)
+                newTarget = True
+                map[currentTileX][currentTileZ+1].seen = True
             map[currentTileX][currentTileZ+1].wallnumber = map[currentTileX][currentTileZ+1].wallnumber - 8
-            newTarget = True
+        print("galas: ",ds_back.getValue()) 
         if ds_back.getValue() < 1000:
             wallnumber = wallnumber + 4
             
-        elif map[currentTileX-1][currentTileZ].visited == False:
-              print("prideta ", currentTileX -1, " ", currentTileZ)
-              nextTileX.append(currentTileX -1)
-              nextTileZ.append(currentTileZ)
-              map[currentTileX-1][currentTileZ].seen = True
+        elif currentTileX > 0 and map[currentTileX-1][currentTileZ].visited == False:
+              if map[currentTileX-1][currentTileZ].seen == False:
+                  print("prideta ", currentTileX -1, " ", currentTileZ)
+                  nextTileX.append(currentTileX -1)
+                  nextTileZ.append(currentTileZ)
+                  newTarget = True
+                  map[currentTileX-1][currentTileZ].seen = True
               map[currentTileX-1][currentTileZ].wallnumber = map[currentTileX-1][currentTileZ].wallnumber - 1
-              newTarget = True
+              
+        print("kaire: ",ds_left.getValue()) 
         if ds_left.getValue() < 1000:
               wallnumber = wallnumber + 8
-        elif map[currentTileX][currentTileZ-1].visited == False: 
-              print("prideta ", currentTileX, " ", currentTileZ-1)
-              nextTileX.append(currentTileX)
-              nextTileZ.append(currentTileZ-1)
-              map[currentTileX][currentTileZ-1].seen = True
+        elif currentTileZ > 0 and map[currentTileX][currentTileZ-1].visited == False: 
+              if map[currentTileX][currentTileZ-1].seen == False:
+                  print("prideta ", currentTileX, " ", currentTileZ-1)
+                  nextTileX.append(currentTileX)
+                  nextTileZ.append(currentTileZ-1)
+                  map[currentTileX][currentTileZ-1].seen = True
+                  newTarget = True
               map[currentTileX][currentTileZ-1].wallnumber = map[currentTileX][currentTileZ-1].wallnumber - 2
-              newTarget = True
+              
         map[currentTileX][currentTileZ].wallnumber = wallnumber
+
         arrived = False
         print("sienos numberis ", wallnumber)
         print( nextTileX)
@@ -420,8 +437,8 @@ while robot.step(TIME_STEP) != -1:
 
             targetX = nextTileX.pop()
             targetZ = nextTileZ.pop()
-            print("dabartinis tile ", currentTileX, " ", currentTileZ)
-            print("kitas tile ", targetX, " ", targetZ)
+          #  print("dabartinis tile ", currentTileX, " ", currentTileZ)
+         #   print("kitas tile ", targetX, " ", targetZ)
             if targetX - currentTileX == 1:
                 arrived = drive_until(map, direction, currentTileX, targetX, currentTileZ, targetZ)
             elif currentTileX - targetX == 1:
@@ -441,10 +458,17 @@ while robot.step(TIME_STEP) != -1:
             #    print(nextTileX)
              #   print(nextTileZ)
                 target = LeeAlgo(map, currentTileX, currentTileZ, targetX, targetZ, num_x, num_z)
-                print("naujas taikinys: " , target)
+         #       print("naujas taikinys: " , target)
                 arrived = moveToTarget(map, direction, target)
                 
-            
+    else:
+      currentTileX = round(gps.getValues()[0]/0.3) - 1
+      currentTileZ = round(gps.getValues()[2]/0.3)
+      target = LeeAlgo(map, currentTileX, currentTileZ, startX, startZ, num_x, num_z)
+      print("naujas taikinys: " , target)
+      arrived = moveToTarget(map, direction, target)
+      stop()
+      break          
             
       
       

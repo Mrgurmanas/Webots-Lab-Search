@@ -4,7 +4,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.5617427335642976 -0.6218859737343058 -0.5456216060240329 1.9333935769738921
-  position 0.6315931402245627 2.940414228787209 0.7055519170592357
+  position 0.515383919480278 1.2278752301458182 0.8207160337986152
   follow "robot:distance_sensor_front"
   followType "None"
 }
@@ -1019,8 +1019,9 @@ DEF WALLS Group {
   ]
 }
 Robot {
-  translation 0.918166 0.0424467 0.913267
-  rotation 0.008505708494184132 0.9999638229704918 -7.532098666548037e-05 1.58995
+  translation 0.6 0 0.9
+  rotation 0 1 0 1.58995
+  scale 1.26961 1.26961 1.26961
   children [
     InertialUnit {
       name "intertialUnit"
