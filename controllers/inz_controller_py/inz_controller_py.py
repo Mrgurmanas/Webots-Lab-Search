@@ -148,28 +148,6 @@ def moveToTarget(map, direction, target):
                 rotate(1)
                 arrived = drive_until(map, direction, currentTileX, currentTileX, currentTileZ, currentTileZ-1)
     return arrived
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class Tile:
     visited = False  
@@ -280,19 +258,8 @@ robot = Robot()
 num_x = 7
 num_z= 7
 
-startX = 1
-startZ = 3
-
 maxx, maxy = 7, 7
 map = [[Tile() for x in range(num_x)] for y in range(num_z)] 
-
-#map = [[-1,-1,-1,-1,-1,-1,-1],
- #      [-1,-1,-1,-1,-1,-1,-1],
-#       [-1,-1,-1,-1,-1,-1,-1],
- #      [-1,-1,-1,-1,-1,-1,-1],
-#       [-1,-1,-1,-1,-1,-1,-1],
-#       [-1,-1,-1,-1,-1,-1,-1],
-#       [-1,-1,-1,-1,-1,-1,-1]]
     
 #distance sensor for walls detection
 ds_front = robot.getDevice('distance_sensor_front')
@@ -355,18 +322,9 @@ newPitch = round(inertial_unit.getRollPitchYaw()[2],4)
 print(newPitch)
 direction = 2
 #left 1 top 2 right 3 bottom 4
-#if newPitch < (1.5708 + (1.5708/2)) and newPitch > (1.5708 - (1.5708/2)):
-#    print('driving up')
-#    direction = 2
-#if newPitch < (1.5708 - (1.5708/2)) and newPitch > (-1.5708 + (1.5708/2)):
-#    print('driving right')
-#    direction = 3
-#if newPitch < (-1.5708 + (1.5708/2)) and newPitch > ((-1.5708*2) + (1.5708/2)):
-#    print('driving bottom')
-#    direction = 4
-#if (newPitch < ((-1.5708*2) + (1.5708/2)) and newPitch > (-1.5708*2)) or (newPitch > (1.5708 + (1.5708/2)) and newPitch < (1.5708*2)) :
-#    print('driving left')
-#    direction = 1
+robot.step(TIME_STEP)
+startX = round(gps.getValues()[0]/0.3) - 1
+startZ = round(gps.getValues()[2]/0.3)
 exploring = True
 nextTileX = []
 nextTileZ = []
@@ -538,60 +496,3 @@ while robot.step(TIME_STEP) != -1:
       arrived = moveToTarget(map, direction, target)
       stop()
       break          
-            
-      
-      
-      
-      
-      
-    
-      
-      
-      
-      
-      #  drive_until(currentTileX, 2, currentTileZ, 3)
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-  # while currentTileX != 2 or currentTileZ != 3:
-  #      print(currentTileX)
-  #      print(currentTileZ)
-  #      print("vaziuoja")
-       
-  #      drive_forward() 
-   # print("stop")
-  #  stop()
-
-
-    #get direction by compass
-    #print(compass.getValues())
-    
-    #get inertial position
-    #print(inertial_unit.getRollPitchYaw())
-    
-    #get coords and matrix block index of current block
-    #print('X: ', gps.getValues()[0], ' blockX: ', round(gps.getValues()[0]/0.3))
-    #print('Y: ', gps.getValues()[1], ' blockY: ', round(gps.getValues()[1]/0.3))
-    #print('Z: ', gps.getValues()[2], ' blockZ: ', 1 + round(gps.getValues()[2]/0.3))
-    
-
-
-
