@@ -549,8 +549,8 @@ while robot.step(TIME_STEP) != -1:
 
             targetX = nextTileX.pop()
             targetZ = nextTileZ.pop()
-          #  print("dabartinis tile ", currentTileX, " ", currentTileZ)
-         #   print("kitas tile ", targetX, " ", targetZ)
+            print("dabartinis tile ", currentTileX, " ", currentTileZ)
+            print("kitas tile ", targetX, " ", targetZ)
             if targetX - currentTileX == 1:
                 arrived = drive_until(map, direction, currentTileX, targetX, currentTileZ, targetZ)
             elif currentTileX - targetX == 1:
@@ -567,10 +567,14 @@ while robot.step(TIME_STEP) != -1:
                 robot.step(TIME_STEP)
                 targetX = nextTileX.pop()
                 targetZ = nextTileZ.pop()
-            #    print(nextTileX)
-             #   print(nextTileZ)
+                currentTileX = round(gps.getValues()[0]/0.3) - 1
+                currentTileZ = round(gps.getValues()[2]/0.3)
+                print(nextTileX)
+                print(nextTileZ)
+                print("dabartinis tile ", currentTileX, " ", currentTileZ)
+                print("kitas tile ", targetX, " ", targetZ)
                 target = LeeAlgo(map, currentTileX, currentTileZ, targetX, targetZ, num_x, num_z)
-         #       print("naujas taikinys: " , target)
+                print("naujas taikinys: " , target)
                 arrived = moveToTarget(map, direction, target)
         
                 
