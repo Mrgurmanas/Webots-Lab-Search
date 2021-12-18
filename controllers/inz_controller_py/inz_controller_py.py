@@ -184,24 +184,31 @@ def drive_until(map, direction, currentTileX, xpos, currentTileZ, zpos):
         robot.step(TIME_STEP)
      #   print(abs(currentTileX - xpos))
      #   print(abs(currentTileZ - zpos))
-        if line_sensor.getValue() > 500.0:
+        
+        if line_sensor.getValue() > 300.0:
             foundLine = True
+            print("SIENAAAAAAAA")
         drive_forward() 
        stop()
        if foundLine == True:
+           map[xpos][zpos].seen = False
            currentTileX = round(gps.getValues()[0]/0.3) - 1
            currentTileZ = round(gps.getValues()[2]/0.3)
            if direction == 1:
               map[currentTileX][currentTileZ].wallnumberlines += 8
+              map[xpos][zpos].wallnumberlines += 2
               direction = rotate(3)
            elif direction == 2:
               map[currentTileX][currentTileZ].wallnumberlines += 1
+              map[xpos][zpos].wallnumberlines += 4
               direction = rotate(4)
            elif direction == 3:
               map[currentTileX][currentTileZ].wallnumberlines += 2
+              map[xpos][zpos].wallnumberlines += 8
               direction = rotate(1)
            elif direction == 4:
               map[currentTileX][currentTileZ].wallnumberlines += 4
+              map[xpos][zpos].wallnumberlines += 1
               direction = rotate(2)
            currentTileX = round(gps.getValues()[0]/0.3,2) - 1
            currentTileZ = round(gps.getValues()[2]/0.3,2)
@@ -560,7 +567,9 @@ while robot.step(TIME_STEP) != -1:
       currentTileZ = round(gps.getValues()[2]/0.3)
       target = LeeAlgo(map, currentTileX, currentTileZ, startX, startZ, num_x, num_z)
       print("naujas taikinys: " , target)
-      arrived = moveToTarget(map, direction, target)
+      arrived = False
+      while arrived == False:
+          arrived = moveToTarget(map, direction, target)
       displayWallDetection = detected_wall_display.imageLoad("winner.png")
       detected_wall_display.imagePaste(displayWallDetection,0,0,True)
       stop()
