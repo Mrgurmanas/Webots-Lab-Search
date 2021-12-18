@@ -1,0 +1,70 @@
+0001 /
+
+0010 /
+0011
+0100
+0101
+0110
+0111
+1000
+1001
+1010
+1011
+1100
+1101
+1110
+1111
+if not front and not bottom and not right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("BlankWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if front and not bottom and not right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("FrontWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and bottom and not right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("BottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and not bottom and right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("RightWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and not bottom and not right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+            
+        if front and bottom and not right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("TopAndBottomWallDetectionDisplayWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if front and not bottom and right and not left:
+            displayWallDetection = detected_wall_display.imageLoad("TopAndRightWallDetection.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if front and not bottom and not right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftAndTopWallDetection.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and bottom and right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftRightBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+            
+        if not front and bottom and not right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftAndBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+            
+            
+        if not front and not bottom and right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftAndBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+                
+        if front and bottom and right and  not left:
+            displayWallDetection = detected_wall_display.imageLoad("RightTopAndBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and bottom and not right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftAndBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if not front and bottom and right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftRightBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if front and not bottom and right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftRightTopWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+        if front and bottom and right and left:
+            displayWallDetection = detected_wall_display.imageLoad("AllWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+         

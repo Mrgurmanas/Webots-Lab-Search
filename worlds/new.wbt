@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.5293077973274017 0.6311563861583246 0.566987541221126 4.296191572960315
-  position 0.18386090381052492 2.2076467210929542 0.9216039327930664
+  orientation -0.038227463813411515 0.990184739392334 0.13443527396085433 2.9502517045480445
+  position 0.5668196217371758 0.6416315485104085 -0.7360849817884375
   follow "robot:distance_sensor_front"
   followType "None"
 }
@@ -1031,7 +1031,7 @@ Robot {
       translation 0 0.14 0
     }
     Display {
-      translation 0 0.07 0.0500001
+      translation 0 -0.07 -1.73472e-18
       rotation 1 0 0 1.5708
       children [
         Shape {
@@ -1071,6 +1071,8 @@ Robot {
         }
       ]
       name "Wall_Detection_Display"
+      width 32
+      height 32
     }
     LED {
       translation 0 0.06 0.02
@@ -1128,8 +1130,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation -0.04999999999999846 -0.02 0.03
-        rotation -0.5048746143386952 0.5048764688501092 -0.7001438245087923 4.3632341707819915
+        translation -0.049999999999998476 -0.02 0.03
+        rotation -0.5048746143386952 0.5048764688501094 -0.7001438245087923 4.3632341707819915
         children [
           Shape {
             appearance PBRAppearance {
@@ -1191,8 +1193,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.04999999999999943 -0.02 -0.03
-        rotation 0.6198296788612925 -0.6198319556270124 0.4812686526113046 2.2444944156590476
+        translation 0.04999999999999997 -0.02 -0.03
+        rotation 0.6198296788612929 -0.6198319556270125 0.4812686526113039 2.244494415659047
         children [
           Shape {
             appearance PBRAppearance {
@@ -1223,8 +1225,8 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.049999999999999496 -0.02 0.03
-        rotation 0.6182228416038876 -0.618225112467351 0.48538461907434366 2.2378213604440034
+        translation 0.04999999999999947 -0.02 0.03
+        rotation 0.6182228416038877 -0.618225112467351 0.4853846190743436 2.237821360444003
         children [
           Shape {
             appearance PBRAppearance {
