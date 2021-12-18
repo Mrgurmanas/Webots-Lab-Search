@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.06601513257306989 0.9605336155527476 0.2702169048459527 2.8607749630622714
-  position 0.6642551197316185 0.8759629237963393 -0.6505860760621541
+  orientation 0.36439656074486193 0.8405334481747989 0.4008973297699786 4.5765739172025555
+  position -1.2379771740828038 2.214012917312227 1.0862045215983962
   follow "robot:distance_sensor_front"
   followType "None"
 }
@@ -1020,7 +1020,7 @@ DEF WALLS Group {
 }
 Robot {
   translation 0.6 0.06 0.9
-  rotation -2.4406208797197766e-05 0.9999893604453375 -0.004612851662698565 3.12982
+  rotation 0 1 0 1.5708
   scale 1.26961 1.26961 1.26961
   children [
     Shape {
@@ -1031,7 +1031,7 @@ Robot {
       translation 0 0.14 0
     }
     Display {
-      translation 0 -0.07 -1.73472e-18
+      translation 0 -0.07 0
       rotation 1 0 0 1.5708
       children [
         Shape {
@@ -1047,10 +1047,10 @@ Robot {
           geometry IndexedFaceSet {
             coord Coordinate {
               point [
-                0.1 0.1 -0.1
-                0.1 -0.1 -0.1
-                -0.1 -0.1 -0.1
-                -0.1 0.1 -0.1
+                0.05 0.05 -0.1
+                0.05 -0.05 -0.1
+                -0.05 -0.05 -0.1
+                -0.05 0.05 -0.1
               ]
             }
             texCoord TextureCoordinate {
@@ -1191,7 +1191,7 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.05000000000000023 -0.02 -0.03
+        translation 0.05000000000000033 -0.02 -0.03
         rotation 0.6198296788612929 -0.6198319556270125 0.4812686526113039 2.244494415659047
         children [
           Shape {
