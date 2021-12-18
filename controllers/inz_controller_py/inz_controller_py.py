@@ -221,11 +221,14 @@ def stop():
     
 
 def updateDisplay():
+    #set variables:
     front = False
     bottom = False
     right = False
     left = False
-    if ds_front.getValue() < 1000:
+    #check wall sensors values 
+    # if sensor value less than 1000, it means our robots sensor "sees" the wall
+    if ds_front.getValue() < 1000: 
         front = True
     if ds_back.getValue() < 1000:
         bottom = True
@@ -234,7 +237,8 @@ def updateDisplay():
     if ds_right.getValue() < 1000:
         right = True
     
-    #print("front value: ", front)
+    
+    #check out variables and display related image
     if not front and not bottom and not right and not left:
             displayWallDetection = detected_wall_display.imageLoad("BlankWallDetectionDisplay.png")
             detected_wall_display.imagePaste(displayWallDetection,0,0,True)
@@ -557,5 +561,8 @@ while robot.step(TIME_STEP) != -1:
       target = LeeAlgo(map, currentTileX, currentTileZ, startX, startZ, num_x, num_z)
       print("naujas taikinys: " , target)
       arrived = moveToTarget(map, direction, target)
+      displayWallDetection = detected_wall_display.imageLoad("winner.png")
+      detected_wall_display.imagePaste(displayWallDetection,0,0,True)
       stop()
-      break          
+      break
+          
