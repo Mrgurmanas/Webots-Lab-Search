@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.36439656074486193 0.8405334481747989 0.4008973297699786 4.5765739172025555
-  position -1.2379771740828038 2.214012917312227 1.0862045215983962
+  orientation 0.5043429840457353 0.6975319036139815 0.50900628472004 4.351104307425184
+  position -0.7327159319551755 6.112209814840755 0.9650263275264851
   follow "robot:distance_sensor_front"
   followType "None"
 }
@@ -363,7 +363,7 @@ DEF GROUND Group {
           appearance Appearance {
             texture ImageTexture {
               url [
-                "../tiles/0.png"
+                "../tiles/2R.png"
               ]
             }
           }
@@ -795,7 +795,7 @@ DEF GROUND Group {
           appearance Appearance {
             texture ImageTexture {
               url [
-                "../tiles/0.png"
+                "../tiles/1B.png"
               ]
             }
           }
@@ -1191,7 +1191,7 @@ Robot {
         }
       ]
       endPoint Solid {
-        translation 0.05000000000000033 -0.02 -0.03
+        translation 0.05000000000000047 -0.02 -0.03
         rotation 0.6198296788612929 -0.6198319556270125 0.4812686526113039 2.244494415659047
         children [
           Shape {
