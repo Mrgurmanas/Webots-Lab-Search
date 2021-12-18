@@ -263,18 +263,22 @@ def updateDisplay():
     if not front and bottom and right and not left:
             displayWallDetection = detected_wall_display.imageLoad("RightAndBottomWallDetectionDisplay.png")
             detected_wall_display.imagePaste(displayWallDetection,0,0,True)
-            
+    if front and not bottom and right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftRightTopWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+                    
     if not front and bottom and not right and left:
             displayWallDetection = detected_wall_display.imageLoad("LeftAndBottomWallDetectionDisplay.png")
             detected_wall_display.imagePaste(displayWallDetection,0,0,True)
             
             
-    if not front and not bottom and right and left:
-            displayWallDetection = detected_wall_display.imageLoad("LeftAndBottomWallDetectionDisplay.png")
-            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+    
                 
     if front and bottom and right and  not left:
             displayWallDetection = detected_wall_display.imageLoad("RightTopAndBottomWallDetectionDisplay.png")
+            detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+    if front and bottom and not right and left:
+            displayWallDetection = detected_wall_display.imageLoad("LeftTopAndBottomWallDetectionDisplay.png")
             detected_wall_display.imagePaste(displayWallDetection,0,0,True)
     if not front and bottom and not right and left:
             displayWallDetection = detected_wall_display.imageLoad("LeftAndBottomWallDetectionDisplay.png")
@@ -282,6 +286,8 @@ def updateDisplay():
     if not front and bottom and right and left:
             displayWallDetection = detected_wall_display.imageLoad("LeftRightBottomWallDetectionDisplay.png")
             detected_wall_display.imagePaste(displayWallDetection,0,0,True)
+    
+    
     if not front and not bottom and right and left:
             displayWallDetection = detected_wall_display.imageLoad("LeftRightWallDetectionDisplay.png")
             detected_wall_display.imagePaste(displayWallDetection,0,0,True)
