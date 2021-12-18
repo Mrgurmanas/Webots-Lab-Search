@@ -144,15 +144,19 @@ def moveToTarget(map, direction, target):
             arrived = False
             if dir == 'N':
                 rotate(2)
+                direction = 2
                 arrived = drive_until(map, direction, currentTileX, currentTileX+1, currentTileZ, currentTileZ)
             if dir == 'E':
                 rotate(3)
+                direction = 3
                 arrived = drive_until(map, direction, currentTileX, currentTileX, currentTileZ, currentTileZ+1)
             if dir == 'S':
                 rotate(4)
+                direction = 4
                 arrived = drive_until(map, direction, currentTileX, currentTileX-1, currentTileZ, currentTileZ)
             if dir == 'W':
                 rotate(1)
+                direction = 1
                 arrived = drive_until(map, direction, currentTileX, currentTileX, currentTileZ, currentTileZ-1)
     return arrived
 
@@ -162,6 +166,7 @@ class Tile:
     wallnumber = 15
     wallnumberlines = 0
     distance = -1
+    seenTimes = 0
     def __init__(self):
       pass
 def drive_forward():
@@ -191,7 +196,9 @@ def drive_until(map, direction, currentTileX, xpos, currentTileZ, zpos):
         drive_forward() 
        stop()
        if foundLine == True:
-           map[xpos][zpos].seen = False
+           map[xpos][zpos].seenTimes -=1
+           if map[xpos][zpos].seenTimes == 0:
+               map[xpos][zpos].seen = False
            currentTileX = round(gps.getValues()[0]/0.3) - 1
            currentTileZ = round(gps.getValues()[2]/0.3)
            if direction == 1:
@@ -442,6 +449,7 @@ nextTileX = []
 nextTileZ = []
 map[startX][startZ].visited = True
 map[startX][startZ].seen = True
+map[startX][startZ].seenTimes +=1
 newTarget = False
 while robot.step(TIME_STEP) != -1:
     
@@ -474,6 +482,7 @@ while robot.step(TIME_STEP) != -1:
               nextTileZ.append(currentTileZ)
               map[currentTileX +1][currentTileZ].seen = True
               newTarget = True
+          map[currentTileX +1][currentTileZ].seenTimes +=1
           map[currentTileX + 1][currentTileZ].wallnumber = map[currentTileX + 1][currentTileZ].wallnumber - 4
         print("desine: ",ds_right.getValue()) 
         if ds_right.getValue() < 1000:
@@ -487,6 +496,7 @@ while robot.step(TIME_STEP) != -1:
                 nextTileZ.append(currentTileZ+1)
                 newTarget = True
                 map[currentTileX][currentTileZ+1].seen = True
+            map[currentTileX][currentTileZ+1].seenTimes +=1
             map[currentTileX][currentTileZ+1].wallnumber = map[currentTileX][currentTileZ+1].wallnumber - 8
         print("galas: ",ds_back.getValue()) 
         if ds_back.getValue() < 1000:
@@ -500,6 +510,7 @@ while robot.step(TIME_STEP) != -1:
                   nextTileZ.append(currentTileZ)
                   newTarget = True
                   map[currentTileX-1][currentTileZ].seen = True
+              map[currentTileX-1][currentTileZ].seenTimes +=1
               map[currentTileX-1][currentTileZ].wallnumber = map[currentTileX-1][currentTileZ].wallnumber - 1
               
         print("kaire: ",ds_left.getValue()) 
@@ -514,6 +525,7 @@ while robot.step(TIME_STEP) != -1:
                   nextTileZ.append(currentTileZ-1)
                   map[currentTileX][currentTileZ-1].seen = True
                   newTarget = True
+              map[currentTileX][currentTileZ-1].seenTimes +=1
               map[currentTileX][currentTileZ-1].wallnumber = map[currentTileX][currentTileZ-1].wallnumber - 2
               
         map[currentTileX][currentTileZ].wallnumber = wallnumber
